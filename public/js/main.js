@@ -3,6 +3,7 @@ const inputName = document.querySelector('.input-name');
 const inputDescription = document.querySelector('.input-description');
 const inputPrice = document.querySelector('.input-price');
 const submitButton = document.querySelector('.submit-button');
+const chart = document.querySelector('.chart-example'); 
 
 fetch('/icecreams')
 .then(myData => myData.json())
@@ -10,6 +11,7 @@ fetch('/icecreams')
 
 function showIcecreams(icecreams) {
     console.log(icecreams);
+    createCharts(icecreams);
     let htmlCode = '';
     for (let i = 0; i < icecreams.length; i++) {
         const icecream = icecreams[i];
@@ -68,3 +70,45 @@ submitButton.addEventListener('click', function (e) {
     })();
 
 });
+
+function createCharts(icecreams) {
+    console.log(icecreams)
+
+    let cheaperIcecream = 0;
+    let expensiveIcecream = 0;
+    const labels = [];
+    const data = [];
+    for (let i = 0; i < icecreams.length; i++) {
+        const icecream = icecreams[i];
+        labels.push(icecream.icecream);
+        data.push(icecream.price)
+
+        if (icecream.price < 5) {
+            cheaperIcecream++
+        } else {
+            expensiveIcecream++
+        }
+    }
+    createChart(chart, 'pie', ['goedkoper dan 5 euro', 'duurder dan 5 euro'], [cheaperIcecream, expensiveIcecream]);
+}
+
+function createChart(canvas, type, labels, data) {
+    new Chart(canvas, {
+        type: type,
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'hallo',
+                data: data,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}   
