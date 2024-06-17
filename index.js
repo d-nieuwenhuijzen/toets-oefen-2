@@ -5,13 +5,14 @@ import {} from 'dotenv/config';
 import { MongoClient } from 'mongodb';
 
 const app = express();
-const port = 3001;
+const port = 3000;
 
+app.use(express.static('public'));
 app.use(cors());
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+
+
 app.use(bodyParser.json())
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
@@ -29,10 +30,9 @@ app.get('/icecreams', (req, res) => {
     });
 });
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+app.get('/', (req, res) => {
+    res.send('Hello World!');
 });
-
 //Deze functie geeft alle documenten terug uit een collectie in MongoDB
 async function fetchIcecreams() {
     try {

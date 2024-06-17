@@ -6,10 +6,12 @@ fetch('/icecreams')
 
 function showIcecreams(icecreams) {
     console.log(icecreams);
+    let htmlCode = '';
     for (let i = 0; i < icecreams.length; i++) {
         const icecream = icecreams[i];
         htmlCode += icecreamCard(icecream);
     }
+    cardContainer.innerHTML += htmlCode;
 }
 
 function icecreamCard(icecream) {
@@ -24,5 +26,4 @@ function icecreamCard(icecream) {
             </div>
         </div>`;
     return card;
-
 }
