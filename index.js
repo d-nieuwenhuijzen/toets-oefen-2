@@ -13,11 +13,6 @@ app.use(cors());
 
 app.use(bodyParser.json())
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-});
-
-
 const databaseUrl = process.env.CONNECTION_URL;
 const client = new MongoClient(databaseUrl);
 
@@ -29,10 +24,12 @@ app.get('/icecreams', (req, res) => {
         res.json(documents);
     });
 });
+    
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
 });
+
 //Deze functie geeft alle documenten terug uit een collectie in MongoDB
 async function fetchIcecreams() {
     try {
